@@ -1,0 +1,27 @@
+.detailsWrapper {
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3.125rem;
+}
+
+.detailsWrapper > * {
+  flex: 0 1 calc((98% / 2));
+}
+
+.detailsWrapper .info {
+  color: var(--color-third);
+}
+
+.detailsWrapper .info h2 {
+  margin-bottom: 1.25rem;
+}
+
+.btnBack {
+  all: unset;
+  color: white;
+  margin-bottom: 1.25rem;
+  cursor: pointer;
+  text-transform: capitalize;
+}

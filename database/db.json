@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "name": "karim",
+      "car": "bmw"
+    },
+    {
+      "id": "2",
+      "name": "mohamed",
+      "car": "jeep"
+    },
+    {
+      "id": "3",
+      "name": "ahmed",
+      "car": "lada"
+    },
+    {
+      "id": "4",
+      "name": "mona",
+      "car": "marcedes"
+    }
+  ]
+}

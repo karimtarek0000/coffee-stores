@@ -1,0 +1,31 @@
+.cardsWrapper {
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: space-between;
+  margin-top: 3.125rem;
+}
+
+.cardsWrapper > * {
+  flex: 0 1 calc(95% / 4);
+}
+
+.card {
+  background-color: var(--color-scandery);
+  max-height: 20rem;
+  border-radius: 0.625rem;
+  padding-top: 0.625rem;
+  color: var(--color-third);
+  margin-bottom: 1.7%;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.card h3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  padding-inline: 0.625rem;
+  margin-bottom: 0.625rem;
+}

@@ -1,0 +1,29 @@
+.info {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+  color: white;
+}
+.title {
+  font-size: 5rem;
+}
+.desc {
+  font-size: 1.7rem;
+  color: rgb(188, 188, 188);
+}
+.discoverStoreBtn {
+  all: unset;
+  background-color: var(--color-primary);
+  border-radius: 10px;
+  padding-inline: 40px;
+  padding-block: 20px;
+  margin-top: 20px;
+  font-size: 1.3rem;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: background-color 0.7s ease;
+}
+.discoverStoreBtn:hover {
+  background-color: var(--color-scandery);
+}
