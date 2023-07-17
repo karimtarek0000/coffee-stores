@@ -18,7 +18,6 @@ html {
 
 body {
   font-family: sans-serif;
-  height: 10000px;
   background-color: var(--color-primary);
 }
 
@@ -34,4 +33,10 @@ body {
   max-width: 80rem;
   padding-inline: 0.625rem;
   margin-inline: auto;
+}
+
+.headTitle {
+  font-size: 2.5rem;
+  color: white;
+  margin-block: 2.125rem;
 }

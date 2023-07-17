@@ -1,6 +1,6 @@
 export type CoffeeStoreCardDetails = {
   name: string;
-  location: { formatted_address: string };
+  location: string;
   timezone: string;
   imgUrl: string;
 };

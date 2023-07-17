@@ -5,8 +5,8 @@ import { CoffeeStoreCard } from "../types";
 
 const { card } = Style;
 
-const Card = ({ store }: { store: CoffeeStoreCard }): JSX.Element => {
-  const { id, name, imgUrl } = store;
+const Card = ({ item }: { item?: CoffeeStoreCard }): JSX.Element => {
+  const { id, name, imgUrl } = item;
 
   return (
     <Link key={id} href={`/coffee-shop/${id}`} className={card}>

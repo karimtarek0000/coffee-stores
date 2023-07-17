@@ -1,9 +1,16 @@
 import Image from "next/image";
+import { MouseEventHandler } from "react";
 import Style from "../styles/header.module.css";
 
 const { info, title, desc, discoverStoreBtn } = Style;
 
-const Header = (): JSX.Element => {
+type HeaderProps = {
+  locationHandler: MouseEventHandler;
+  loading: boolean;
+  locationErrorMsg: string;
+};
+
+const Header = ({ locationHandler, loading, locationErrorMsg }: HeaderProps): JSX.Element => {
   return (
     <header className="position-rl">
       <Image
@@ -17,7 +24,10 @@ const Header = (): JSX.Element => {
       <div className={info}>
         <h1 className={title}>Coffee Stores</h1>
         <p className={desc}>Discover your local coffee stores!</p>
-        <button className={discoverStoreBtn}>view stores nearby</button>
+        <button disabled={loading} onClick={locationHandler} className={discoverStoreBtn}>
+          {loading ? "Locating..." : "view stores nearby"}
+        </button>
+        {locationErrorMsg && <p>Something Wrong {locationErrorMsg}</p>}
       </div>
     </header>
   );

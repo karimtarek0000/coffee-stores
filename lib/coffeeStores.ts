@@ -2,18 +2,18 @@ import { createApi } from "unsplash-js";
 import { CoffeeStoreCardDetails } from "../types";
 
 const unsplash = createApi({
-  accessKey: process.env.UNSPLASH_API_KEY,
+  accessKey: process.env.NEXT_PUBLIC_UNSPLASH_API_KEY,
 });
 
 const getUrlCoffeeStores = (latLong: string, query: string, limit: number) => {
-  return `${process.env.FOURSQUER_URL}/search?${query}=coffee&ll=${latLong}&limit=${limit}`;
+  return `${process.env.NEXT_PUBLIC_FOURSQUER_URL}/search?${query}=coffee&ll=${latLong}&limit=${limit}`;
 };
 
 const getCoffeeStoresPhotos = async (): Promise<string[]> => {
   const photos = await unsplash.search.getPhotos({
     query: "coffee shop",
     page: 1,
-    perPage: 8,
+    perPage: 30,
     orientation: "portrait",
   });
 
@@ -24,23 +24,25 @@ const options = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization: process.env.FOURSQUER_API_KEY,
+    Authorization: process.env.NEXT_PUBLIC_FOURSQUER_API_KEY,
   },
 };
 
-export const fetchCoffeeStores = async (): Promise<CoffeeStoreCardDetails[]> => {
+export const fetchCoffeeStores = async (
+  latLong: string = "30.053859646567233,31.33384796891165",
+  limit: number = 8
+): Promise<CoffeeStoreCardDetails[]> => {
   const coffeeStoresPhotos = await getCoffeeStoresPhotos();
 
-  const coffeeStoresData: any = await fetch(
-    getUrlCoffeeStores("42.898800650530795,-75.93571028480666", "coffee", 8),
-    options
-  );
+  const coffeeStoresData: any = await fetch(getUrlCoffeeStores(latLong, "coffee", limit), options);
   const coffeeStores = await coffeeStoresData.json();
 
   return coffeeStores.results.map((coffee: any, index: number) => {
     return {
-      ...coffee,
       id: coffee.fsq_id,
+      name: coffee.name,
+      timezone: coffee.timezone,
+      location: coffee.location.formatted_address,
       imgUrl: coffeeStoresPhotos.length ? coffeeStoresPhotos[index] : null,
     };
   });

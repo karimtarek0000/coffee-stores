@@ -23,6 +23,7 @@
   text-transform: capitalize;
   cursor: pointer;
   transition: background-color 0.7s ease;
+  margin-bottom: 1.25rem;
 }
 .discoverStoreBtn:hover {
   background-color: var(--color-scandery);
