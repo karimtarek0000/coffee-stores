@@ -1,7 +1,8 @@
 export type CoffeeStoreCardDetails = {
+  id: string;
   name: string;
   location: string;
-  timezone: string;
+  vote: number;
   imgUrl: string;
 };
 

@@ -2,11 +2,11 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
+import { StoreContext } from "../../context";
 import { fetchCoffeeStores } from "../../lib/coffeeStores";
 import Style from "../../styles/details.module.css";
 import { CoffeeStoreCardDetails } from "../../types";
-import { useContext, useEffect, useState } from "react";
-import { StoreContext } from "../../context";
 import { isObjEmpty } from "../../utils";
 
 const { detailsWrapper, btnBack, info } = Style;
@@ -43,11 +43,35 @@ const CoffeeShopDetails = ({
   const router: any = useRouter();
   const { store } = useContext(StoreContext);
   const [_coffeeStore, setCoffeeStores] = useState(coffeeStore);
+  const id = router.query.id;
+
+  const createCoffeeStoreHandler = async (
+    coffeeStoreData: CoffeeStoreCardDetails
+  ): Promise<void> => {
+    try {
+      const res = await fetch("/api/createCoffeeStore", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(coffeeStoreData),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    if (isObjEmpty(_coffeeStore))
-      setCoffeeStores(store.coffeeStores.find((shop) => shop.id === router.query.id));
-  }, [_coffeeStore, router.query.id, store.coffeeStores]);
+    if (isObjEmpty(_coffeeStore)) {
+      const coffeeStoreExist: CoffeeStoreCardDetails = store.coffeeStores.find(
+        (shop) => shop.id === id
+      );
+      if (coffeeStoreExist) {
+        createCoffeeStoreHandler(coffeeStoreExist);
+        setCoffeeStores(coffeeStoreExist);
+      }
+    }
+  }, [_coffeeStore, id, store.coffeeStores]);
 
   if (router.isFallback) {
     return (
@@ -57,7 +81,7 @@ const CoffeeShopDetails = ({
     );
   }
 
-  const { name, location, timezone, imgUrl } = _coffeeStore;
+  const { name, location, imgUrl } = _coffeeStore;
 
   return (
     <>
@@ -72,6 +96,7 @@ const CoffeeShopDetails = ({
             <button onClick={() => router.back()} className={btnBack}>
               &larr; back to home
             </button>
+            <h2>{name}</h2>
             <Image
               src={
                 imgUrl ||
@@ -85,9 +110,7 @@ const CoffeeShopDetails = ({
           </div>
 
           <div className={info}>
-            <h2>{name}</h2>
             <h2>{location}</h2>
-            <h2>{timezone}</h2>
           </div>
         </section>
       </main>

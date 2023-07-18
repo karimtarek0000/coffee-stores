@@ -29,7 +29,7 @@ const options = {
 };
 
 export const fetchCoffeeStores = async (
-  latLong: string = "30.053859646567233,31.33384796891165",
+  latLong: string = "38.86851624661457,-77.14574038118371",
   limit: number = 8
 ): Promise<CoffeeStoreCardDetails[]> => {
   const coffeeStoresPhotos = await getCoffeeStoresPhotos();
@@ -41,7 +41,6 @@ export const fetchCoffeeStores = async (
     return {
       id: coffee.fsq_id,
       name: coffee.name,
-      timezone: coffee.timezone,
       location: coffee.location.formatted_address,
       imgUrl: coffeeStoresPhotos.length ? coffeeStoresPhotos[index] : null,
     };

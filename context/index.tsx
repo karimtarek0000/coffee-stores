@@ -1,15 +1,16 @@
 import { Dispatch, ReactNode, createContext, useReducer } from "react";
+import { CoffeeStoreCardDetails } from "../types";
 
 type InitialState = {
   latLong: string;
-  coffeeStores: any[];
+  coffeeStores: CoffeeStoreCardDetails[];
 };
 
 type Actions = {
   type: "latLong" | "coffeeStores";
   payload: {
     latLong?: string;
-    coffeeStores?: any[];
+    coffeeStores?: CoffeeStoreCardDetails[];
   };
 };
 

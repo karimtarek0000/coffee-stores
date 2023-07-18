@@ -28,7 +28,10 @@ export default function Home(props: CoffeeStoresCard) {
     try {
       setLoadingCoffeeStores(true);
       setErrorMsg("");
-      const coffeeStores = await fetchCoffeeStores(latLong, 20);
+
+      const res = await fetch(`/api/getCoffeeStoresByLocation?latLong=${latLong}&limit=20`);
+      const { coffeeStores } = await res.json();
+
       dispatch({ type: "coffeeStores", payload: { coffeeStores } });
       dispatch({ type: "latLong", payload: { latLong } });
     } catch (error) {
@@ -66,7 +69,7 @@ export default function Home(props: CoffeeStoresCard) {
           </RenderComponents>
         </section>
 
-        <h2 className="headTitle">Nasr City</h2>
+        <h2 className="headTitle">Washington</h2>
         <section className={cardsWrapper}>
           <RenderComponents items={coffeeStores}>
             <Card />
