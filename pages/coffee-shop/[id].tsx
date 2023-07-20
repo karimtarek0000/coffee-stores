@@ -73,8 +73,9 @@ const CoffeeShopDetails = ({
 
   // This use effect update data after SWR revalidate new data
   useEffect(() => {
-    if (newCoffeeStore) {
+    if (!!newCoffeeStore?.data) {
       const { data } = newCoffeeStore;
+
       setCoffeeStore(data);
       setVote(data?.vote ?? 0);
     }
@@ -92,7 +93,7 @@ const CoffeeShopDetails = ({
       }
     } else {
       // SSG
-      createCoffeeStoreHandler(_coffeeStore);
+      createCoffeeStoreHandler(coffeeStore);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
