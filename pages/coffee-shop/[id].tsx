@@ -124,11 +124,12 @@ const CoffeeShopDetails = ({
               {location}
             </h2>
             <h2 className="flex">
-              <RenderSVG name="vote" size="2rem" />
+              <RenderSVG name="voting" size="2rem" />
               {voteCount}
             </h2>
             <button onClick={votingCountHandler} className={voteBtn}>
               vote now
+              <RenderSVG name="vote-btn" size="1.5rem" />
             </button>
           </div>
         </section>
