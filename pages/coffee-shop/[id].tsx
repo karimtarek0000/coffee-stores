@@ -9,8 +9,11 @@ import Style from "../../styles/details.module.css";
 import { CoffeeStoreCardDetails } from "../../types";
 import { isObjEmpty } from "../../utils";
 import RenderSVG from "../../components/shared/RenderSVG";
+import useSWR from "swr";
 
 const { detailsWrapper, title, btnBack, info, imageWrapper, voteBtn } = Style;
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export const getStaticPaths: GetStaticPaths<any> = async () => {
   const coffeeStores = await fetchCoffeeStores();
@@ -43,17 +46,20 @@ const CoffeeShopDetails = ({
 }): JSX.Element => {
   const router: any = useRouter();
   const { store } = useContext(StoreContext);
-  const [_coffeeStore, setCoffeeStores] = useState(coffeeStore);
-  const [voteCount, setVote] = useState<number>(0);
+  const [_coffeeStore, setCoffeeStore] = useState(coffeeStore);
+  const [vote, setVote] = useState<number>(0);
   const id = router.query.id;
+
+  const { data: newCoffeeStore, error } = useSWR(`/api/getCoffeeStoreById?id=${id}`, fetcher);
 
   const votingCountHandler = () => setVote((vote) => (vote += 1));
 
+  // Handler
   const createCoffeeStoreHandler = async (
     coffeeStoreData: CoffeeStoreCardDetails
   ): Promise<void> => {
     try {
-      const res = await fetch("/api/createCoffeeStore", {
+      await fetch("/api/createCoffeeStore", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -65,21 +71,33 @@ const CoffeeShopDetails = ({
     }
   };
 
+  // This use effect update data after SWR revalidate new data
+  useEffect(() => {
+    if (newCoffeeStore) {
+      const { data } = newCoffeeStore;
+      setCoffeeStore(data);
+      setVote(data?.vote ?? 0);
+    }
+  }, [newCoffeeStore]);
+
   useEffect(() => {
     if (isObjEmpty(_coffeeStore)) {
       const coffeeStoreExist: CoffeeStoreCardDetails = store.coffeeStores.find(
         (shop) => shop.id === id
       );
+
       if (coffeeStoreExist) {
         createCoffeeStoreHandler(coffeeStoreExist);
-        setCoffeeStores(coffeeStoreExist);
+        setCoffeeStore(coffeeStoreExist);
       }
     } else {
       // SSG
       createCoffeeStoreHandler(_coffeeStore);
     }
-  }, [_coffeeStore, id, store.coffeeStores]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  // Loading and Error
   if (router.isFallback) {
     return (
       <h1 className="container" style={{ textAlign: "center", marginTop: "20px" }}>
@@ -88,7 +106,16 @@ const CoffeeShopDetails = ({
     );
   }
 
-  const { name, location, imgUrl, vote } = _coffeeStore;
+  if (error) {
+    return (
+      <h1 className="container" style={{ textAlign: "center", marginTop: "20px" }}>
+        Something wrong when retrive new data...
+      </h1>
+    );
+  }
+
+  // All data coffee store
+  const { name, location, imgUrl } = _coffeeStore;
 
   return (
     <>
@@ -125,7 +152,7 @@ const CoffeeShopDetails = ({
             </h2>
             <h2 className="flex">
               <RenderSVG name="voting" size="2rem" />
-              {voteCount}
+              {vote}
             </h2>
             <button onClick={votingCountHandler} className={voteBtn}>
               vote now
