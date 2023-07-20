@@ -1,3 +1,8 @@
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
 .detailsWrapper {
   display: flex;
   flex-flow: wrap row;
@@ -21,4 +26,27 @@
   margin-bottom: 1.25rem;
   cursor: pointer;
   text-transform: capitalize;
+}
+
+.imageWrapper {
+  border-radius: 0.625rem;
+  overflow: hidden;
+  max-height: 25rem;
+}
+
+.voteBtn {
+  all: unset;
+  background-color: var(--color-fourth);
+  color: white;
+  padding-inline: 1.25rem;
+  padding-block: 0.625rem;
+  font-size: 1.25rem;
+  border-radius: 0.625rem;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+
+.voteBtn:hover {
+  background-color: var(--color-scandery);
 }

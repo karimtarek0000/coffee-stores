@@ -37,7 +37,7 @@ export const fetchCoffeeStores = async (
   const coffeeStoresData: any = await fetch(getUrlCoffeeStores(latLong, "coffee", limit), options);
   const coffeeStores = await coffeeStoresData.json();
 
-  return coffeeStores.results.map((coffee: any, index: number) => {
+  return coffeeStores.results?.map((coffee: any, index: number) => {
     return {
       id: coffee.fsq_id,
       name: coffee.name,

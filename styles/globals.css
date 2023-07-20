@@ -10,6 +10,7 @@
   --color-primary: #056651;
   --color-scandery: #005340;
   --color-third: #c2c794;
+  --color-fourth: #084639;
 }
 
 html {
@@ -39,4 +40,12 @@ body {
   font-size: 2.5rem;
   color: white;
   margin-block: 2.125rem;
+}
+
+.flex {
+  display: flex;
+  gap: 10px;
+}
+.flex > * {
+  flex-shrink: 0;
 }
