@@ -42,6 +42,7 @@ export const fetchCoffeeStores = async (
       id: coffee.fsq_id,
       name: coffee.name,
       location: coffee.location.formatted_address,
+      vote: 0,
       imgUrl: coffeeStoresPhotos.length ? coffeeStoresPhotos[index] : null,
     };
   });

@@ -3,13 +3,13 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
+import useSWR from "swr";
+import RenderSVG from "../../components/shared/RenderSVG";
 import { StoreContext } from "../../context";
 import { fetchCoffeeStores } from "../../lib/coffeeStores";
 import Style from "../../styles/details.module.css";
 import { CoffeeStoreCardDetails } from "../../types";
 import { isObjEmpty } from "../../utils";
-import RenderSVG from "../../components/shared/RenderSVG";
-import useSWR from "swr";
 
 const { detailsWrapper, title, btnBack, info, imageWrapper, voteBtn } = Style;
 
@@ -48,11 +48,24 @@ const CoffeeShopDetails = ({
   const { store } = useContext(StoreContext);
   const [_coffeeStore, setCoffeeStore] = useState(coffeeStore);
   const [vote, setVote] = useState<number>(0);
-  const id = router.query.id;
+  const id = router.asPath.split("/").pop();
 
   const { data: newCoffeeStore, error } = useSWR(`/api/getCoffeeStoreById?id=${id}`, fetcher);
 
-  const votingCountHandler = () => setVote((vote) => (vote += 1));
+  // Update the vote
+  const votingCountHandler = async () => {
+    try {
+      setVote((vote) => (vote += 1));
+      await fetch(`/api/favoritCoffeeStoreById?id=${id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+    } catch {
+      setVote((vote) => (vote -= 1));
+    }
+  };
 
   // Handler
   const createCoffeeStoreHandler = async (
@@ -73,7 +86,7 @@ const CoffeeShopDetails = ({
 
   // This use effect update data after SWR revalidate new data
   useEffect(() => {
-    if (!!newCoffeeStore?.data) {
+    if (newCoffeeStore) {
       const { data } = newCoffeeStore;
 
       setCoffeeStore(data);
@@ -82,7 +95,8 @@ const CoffeeShopDetails = ({
   }, [newCoffeeStore]);
 
   useEffect(() => {
-    if (isObjEmpty(_coffeeStore)) {
+    // When enter the page and this id not including
+    if (isObjEmpty(coffeeStore) && store.coffeeStores.length > 0) {
       const coffeeStoreExist: CoffeeStoreCardDetails = store.coffeeStores.find(
         (shop) => shop.id === id
       );
