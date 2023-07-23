@@ -84,9 +84,10 @@ const CoffeeShopDetails = ({
     }
   };
 
+  // Use Effects
   // This use effect update data after SWR revalidate new data
   useEffect(() => {
-    if (newCoffeeStore) {
+    if (!!newCoffeeStore?.data) {
       const { data } = newCoffeeStore;
 
       setCoffeeStore(data);
@@ -96,7 +97,7 @@ const CoffeeShopDetails = ({
 
   useEffect(() => {
     // When enter the page and this id not including
-    if (isObjEmpty(coffeeStore) && store.coffeeStores.length > 0) {
+    if (isObjEmpty(coffeeStore)) {
       const coffeeStoreExist: CoffeeStoreCardDetails = store.coffeeStores.find(
         (shop) => shop.id === id
       );
