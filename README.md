@@ -3,6 +3,7 @@
 Discover all coffee stores in your local
 
 - Next js
+- Typescript
 - Serverless Function
 - Airtable database
 - SWR for revalidate content.
