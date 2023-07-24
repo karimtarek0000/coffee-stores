@@ -1,6 +1,5 @@
-.title {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
+.details {
+  min-height: 90vh;
 }
 
 .detailsWrapper {
@@ -14,6 +13,11 @@
 
 .detailsWrapper > * {
   flex: 0 1 calc((98% / 2));
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
 }
 
 .detailsWrapper img {

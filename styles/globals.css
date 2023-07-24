@@ -50,6 +50,7 @@ body {
   display: flex;
   gap: 10px;
 }
+
 .flex > * {
   flex-shrink: 0;
 }

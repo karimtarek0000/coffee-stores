@@ -11,7 +11,7 @@ import Style from "../../styles/details.module.css";
 import { CoffeeStoreCardDetails } from "../../types";
 import { isObjEmpty } from "../../utils";
 
-const { detailsWrapper, title, btnBack, info, imageWrapper, voteBtn } = Style;
+const { details, detailsWrapper, title, btnBack, info, imageWrapper, voteBtn } = Style;
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -134,7 +134,7 @@ const CoffeeShopDetails = ({
   const { name, location, imgUrl } = _coffeeStore;
 
   return (
-    <>
+    <main className={details}>
       <Head>
         <title>{name}</title>
         <meta name="description" content={location} />
@@ -177,7 +177,7 @@ const CoffeeShopDetails = ({
           </div>
         </section>
       </main>
-    </>
+    </main>
   );
 };
 

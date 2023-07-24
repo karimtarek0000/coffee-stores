@@ -1,10 +1,13 @@
+import Layout from "../components/Layout";
 import StoreProvider from "../context";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
     <StoreProvider>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </StoreProvider>
   );
 }
