@@ -28,3 +28,10 @@
 .discoverStoreBtn:hover {
   background-color: var(--color-scandery);
 }
+
+/* Responsive */
+@media only screen and (max-width: 600px) {
+  .info {
+    text-align: center;
+  }
+}

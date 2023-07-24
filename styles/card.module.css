@@ -7,6 +7,9 @@
 .cardsWrapper > * {
   flex: 0 1 calc(95% / 4);
 }
+.cardsWrapper img {
+  width: 100%;
+}
 
 .card {
   background-color: var(--color-scandery);
@@ -18,6 +21,10 @@
   text-decoration: none;
   overflow: hidden;
 }
+.card > h3 {
+  text-align: center;
+  padding-block: 0.625rem;
+}
 
 .card h3 {
   overflow: hidden;
@@ -27,4 +34,16 @@
   -webkit-box-orient: vertical;
   padding-inline: 0.625rem;
   margin-bottom: 0.625rem;
+}
+
+/* Responsive */
+@media only screen and (max-width: 62rem) {
+  .cardsWrapper > * {
+    flex: 0 1 49%;
+  }
+}
+@media only screen and (max-width: 37.5rem) {
+  .cardsWrapper > * {
+    flex: 0 1 100%;
+  }
 }

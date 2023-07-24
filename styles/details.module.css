@@ -16,6 +16,10 @@
   flex: 0 1 calc((98% / 2));
 }
 
+.detailsWrapper img {
+  width: 100%;
+}
+
 .detailsWrapper .info h2 {
   margin-bottom: 1.25rem;
 }
@@ -53,4 +57,33 @@
 
 .voteBtn:hover {
   background-color: var(--color-scandery);
+}
+
+/* Responsive */
+@media only screen and (max-width: 62rem) {
+  .detailsWrapper > * {
+    flex: 0 1 100%;
+  }
+
+  .info {
+    margin-top: 1.25rem;
+  }
+
+  .info > h2 {
+    justify-content: center;
+  }
+
+  .btnBack {
+    margin-top: 1.25rem;
+  }
+
+  .voteBtn {
+    margin-inline: auto;
+  }
+}
+
+@media only screen and (max-width: 37.5rem) {
+  .title {
+    text-align: center;
+  }
 }

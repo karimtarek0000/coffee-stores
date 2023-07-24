@@ -3,11 +3,11 @@ import { MouseEventHandler, useCallback, useContext, useEffect, useState } from 
 import Card from "../components/Card";
 import Header from "../components/Header";
 import RenderComponents from "../components/RenderComponents";
+import { StoreContext } from "../context";
 import useTrackLocation from "../hooks/useTrackLocation";
 import { fetchCoffeeStores } from "../lib/coffeeStores";
 import StyleCard from "../styles/card.module.css";
-import { CoffeeStoreCardDetails, CoffeeStoresCard } from "../types";
-import { StoreContext } from "../context";
+import { CoffeeStoresCard } from "../types";
 
 const { cardsWrapper } = StyleCard;
 
