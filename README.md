@@ -8,3 +8,7 @@ Discover all coffee stores in your local
 - Airtable database
 - SWR for revalidate content.
 - SSG Strategy
+
+### Performance
+
+![Alt text](performance.jpg)
